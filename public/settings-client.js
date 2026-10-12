@@ -30,7 +30,7 @@ window.CentralSettings=class {
   this.el('useBatch').onclick=()=>{if(!this.guard())return;this.options.cfg().activeBatchId=this.el('activeBatch').value;this.options.save();this.options.clearFilters();this.options.draw();this.refresh();this.options.toast('Lote de trabalho atualizado.');};
   this.el('saveBatch').onclick=()=>this.source==='catalog'?this.importCatalog():this.saveBatch();this.refresh();this.loadEditor('');
  }
- restoreTab(){let key;try{key=(window.CentralLocalStorage||localStorage).getItem('lungo_settings_tab');}catch{}const button=document.querySelector('[data-settings-tab="'+(['access','batches','profile'].includes(key)?key:'profile')+'"]');if(button&&!button.hidden)button.click();}
+ restoreTab(){let key;try{key=(window.CentralLocalStorage||localStorage).getItem('lungo_settings_tab');}catch{}let button=document.querySelector('[data-settings-tab="'+(['access','batches','profile'].includes(key)?key:'profile')+'"]');if(!button||button.hidden)button=document.querySelector('[data-settings-tab=profile]');button?.click();}
  el(id){return document.getElementById(id);}
  guard(){if(this.options.canUse())return true;this.options.toast('Conclua a chamada e aguarde o carregamento dos dados.');return false;}
  refresh(){
