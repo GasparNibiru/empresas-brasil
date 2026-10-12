@@ -5,7 +5,7 @@ window.CentralSettings=class {
   const root=document.querySelector('#settings .settings'),existing=[...root.childNodes];
   root.innerHTML='<h2>Configurações</h2><nav class="settings-tabs" aria-label="Áreas de configuração"></nav><div class="settings-content"></div>';
   const nav=root.querySelector('nav'),content=root.querySelector('.settings-content');
-  for(const [key,title] of [['general','WhatsApp e metas'],['access','Acessos'],['profile','Meu perfil'],['agent','Agente'],['batches','Lotes de contatos']]){
+  for(const [key,title] of [['general','Configurar WhatsApp'],['access','Acessos'],['profile','Meu perfil'],['agent','Agente'],['batches','Lotes de contatos']]){
    const button=document.createElement('button');button.type='button';button.className='btn';button.textContent=title;button.dataset.settingsTab=key;if(key==='agent')button.hidden=true;
    const panel=document.createElement('section');panel.dataset.settingsPanel=key;panel.hidden=key!=='general';nav.append(button);content.append(panel);
    button.onclick=()=>{if(!this.guard())return;try{(window.CentralLocalStorage||localStorage).setItem('lungo_settings_tab',key);}catch{}nav.querySelectorAll('button').forEach(x=>x.classList.toggle('primary',x===button));content.querySelectorAll(':scope > [data-settings-panel]').forEach(x=>x.hidden=x!==panel);if(key==='batches')this.refresh();};
