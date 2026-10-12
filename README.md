@@ -17,3 +17,8 @@ O proxy Netlify tem timeout de 26 segundos; fila concorrente e mídias demoradas
 O novo domínio tem armazenamento local separado: dados salvos no Supabase continuam disponíveis após login, mas rascunhos e alterações ainda não sincronizadas no domínio antigo não migram automaticamente. Concluir gravações e guardar backup antes de trocar.
 
 Este checkout é uma cópia independente. Alterações futuras na Central precisam ser portadas para este repositório; não há sincronização automática. Não hospeda servidor Node no Netlify e não substitui a VPS. Deploy real ainda não validado.
+
+
+## Abas pessoais do corretor
+
+O corretor pode criar e renomear abas e selecionar contatos dos lotes recebidos. Requer backend atualizado da Central e migracao seller_products no Supabase (aplicada). Metas e regras continuam administrativas. As abas sao preservadas quando o master reenvia lotes. Novas abas nao herdam materiais automaticamente.
