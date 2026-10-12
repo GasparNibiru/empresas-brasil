@@ -5,7 +5,7 @@ window.CentralSettings=class {
   const root=document.querySelector('#settings .settings'),existing=[...root.childNodes];
   root.innerHTML='<h2>Configurações</h2><nav class="settings-tabs" aria-label="Áreas de configuração"></nav><div class="settings-content"></div>';
   const nav=root.querySelector('nav'),content=root.querySelector('.settings-content');
-  for(const [key,title] of [['general','WhatsApp e metas'],['access','Acessos'],['agent','Agente'],['batches','Lotes de contatos']]){
+  for(const [key,title] of [['general','WhatsApp e metas'],['access','Acessos'],['profile','Meu perfil'],['agent','Agente'],['batches','Lotes de contatos']]){
    const button=document.createElement('button');button.type='button';button.className='btn';button.textContent=title;button.dataset.settingsTab=key;if(key==='agent')button.hidden=true;
    const panel=document.createElement('section');panel.dataset.settingsPanel=key;panel.hidden=key!=='general';nav.append(button);content.append(panel);
    button.onclick=()=>{if(!this.guard())return;try{(window.CentralLocalStorage||localStorage).setItem('lungo_settings_tab',key);}catch{}nav.querySelectorAll('button').forEach(x=>x.classList.toggle('primary',x===button));content.querySelectorAll(':scope > [data-settings-panel]').forEach(x=>x.hidden=x!==panel);if(key==='batches')this.refresh();};
@@ -30,7 +30,7 @@ window.CentralSettings=class {
   this.el('useBatch').onclick=()=>{if(!this.guard())return;this.options.cfg().activeBatchId=this.el('activeBatch').value;this.options.save();this.options.clearFilters();this.options.draw();this.refresh();this.options.toast('Lote de trabalho atualizado.');};
   this.el('saveBatch').onclick=()=>this.source==='catalog'?this.importCatalog():this.saveBatch();this.refresh();this.loadEditor('');
  }
- restoreTab(){let key;try{key=(window.CentralLocalStorage||localStorage).getItem('lungo_settings_tab');}catch{}const button=document.querySelector('[data-settings-tab="'+(['general','access','batches'].includes(key)?key:'general')+'"]');if(button&&!button.hidden)button.click();}
+ restoreTab(){let key;try{key=(window.CentralLocalStorage||localStorage).getItem('lungo_settings_tab');}catch{}const button=document.querySelector('[data-settings-tab="'+(['general','access','batches','profile'].includes(key)?key:'general')+'"]');if(button&&!button.hidden)button.click();}
  el(id){return document.getElementById(id);}
  guard(){if(this.options.canUse())return true;this.options.toast('Conclua a chamada e aguarde o carregamento dos dados.');return false;}
  refresh(){
