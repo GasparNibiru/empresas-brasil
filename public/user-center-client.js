@@ -19,6 +19,7 @@ window.CentralUserCenter=class {
    this.usersLoaded=false;document.querySelector('[data-settings-tab=profile]').addEventListener('click',()=>this.loadUsers());
    document.getElementById('postTeamNotice').onclick=async()=>{if(!options.guard())return;const button=document.getElementById('postTeamNotice');button.disabled=true;const status=document.getElementById('noticePostStatus');try{const fields={target:document.getElementById('noticeTarget').value,title:document.getElementById('noticeTitle').value.trim(),message:document.getElementById('noticeMessage').value.trim()};if(!this.pendingNotice||JSON.stringify(fields)!==JSON.stringify(this.pendingNotice.fields))this.pendingNotice={id:crypto.randomUUID(),fields};await this.request('/team-notices','POST',{id:this.pendingNotice.id,...fields});this.pendingNotice=null;document.getElementById('noticeTitle').value='';document.getElementById('noticeMessage').value='';status.textContent='Aviso enviado. Os usuários recebem na próxima atualização do sino.';await this.load();}catch(e){status.textContent=e.message;}finally{button.disabled=false;}};
   }
+  this.teamHub=new window.CentralTeamHub(options,header,()=>{this.popup.hidden=true;this.bell.setAttribute('aria-expanded','false');});
   this.schedule();window.addEventListener('pagehide',()=>{this.stopped=true;clearTimeout(this.timer);});document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!this.stopped&&Date.now()-(this.lastLoad||0)>60000)this.load();});
  }
  url(number){return '/assets/avatars/avatar'+number+'.png?v=1';}
