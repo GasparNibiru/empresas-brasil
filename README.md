@@ -19,6 +19,6 @@ O novo domínio tem armazenamento local separado: dados salvos no Supabase conti
 Este checkout é uma cópia independente. Alterações futuras na Central precisam ser portadas para este repositório; não há sincronização automática. Não hospeda servidor Node no Netlify e não substitui a VPS. Deploy real ainda não validado.
 
 
-## Abas pessoais do corretor
+## Produtos definidos pelo administrador
 
-O corretor pode criar e renomear abas e selecionar contatos dos lotes recebidos. Requer backend atualizado da Central e migracao seller_products no Supabase (aplicada). Metas e regras continuam administrativas. As abas sao preservadas quando o master reenvia lotes. Novas abas nao herdam materiais automaticamente.
+O master nomeia as abas, organiza os contatos por produto e atribui os lotes. O corretor recebe essa organizacao e atende sem editar nomes ou redistribuir contatos. Requer backend atualizado e migracao admin_products (014), aplicada no Supabase. Reenviar lotes atualiza as definicoes do master e preserva o atendimento.
