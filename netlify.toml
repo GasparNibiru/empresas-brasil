@@ -1,0 +1,26 @@
+[build]
+  publish = "public"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://lungo-disparos-central-lungo.dzpywk.easypanel.host/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/login"
+  to = "/login.html"
+  status = 200
+
+[[redirects]]
+  from = "/central_lungo.html"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "no-store"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "same-origin"
