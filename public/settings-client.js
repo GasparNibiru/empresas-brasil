@@ -8,7 +8,7 @@ window.CentralSettings=class {
   for(const [key,title] of [['general','WhatsApp e metas'],['access','Acessos'],['agent','Agente'],['batches','Lotes de contatos']]){
    const button=document.createElement('button');button.type='button';button.className='btn';button.textContent=title;button.dataset.settingsTab=key;if(key==='agent')button.hidden=true;
    const panel=document.createElement('section');panel.dataset.settingsPanel=key;panel.hidden=key!=='general';nav.append(button);content.append(panel);
-   button.onclick=()=>{if(!this.guard())return;nav.querySelectorAll('button').forEach(x=>x.classList.toggle('primary',x===button));content.querySelectorAll(':scope > [data-settings-panel]').forEach(x=>x.hidden=x!==panel);if(key==='batches')this.refresh();};
+   button.onclick=()=>{if(!this.guard())return;try{(window.CentralLocalStorage||localStorage).setItem('lungo_settings_tab',key);}catch{}nav.querySelectorAll('button').forEach(x=>x.classList.toggle('primary',x===button));content.querySelectorAll(':scope > [data-settings-panel]').forEach(x=>x.hidden=x!==panel);if(key==='batches')this.refresh();};
    if(key==='general'){button.classList.add('primary');panel.classList.add('settings-grid');let card;for(const node of existing){if(node.nodeName==='HR')continue;if(!card||node.nodeName==='H3'){card=document.createElement('div');card.className='settings-card';panel.append(card);}card.append(node);}}
   }
   content.querySelector('[data-settings-panel=access]').innerHTML='<h3>Acessos de usuários</h3><p>Aqui ficará a criação de acessos e a gestão das permissões da equipe.</p><div class="settings-placeholder">Em preparação. O acesso atual continua pelo usuário e senha configurados no servidor. A geração de usuários individuais será implementada na próxima etapa.</div>';
@@ -30,6 +30,7 @@ window.CentralSettings=class {
   this.el('useBatch').onclick=()=>{if(!this.guard())return;this.options.cfg().activeBatchId=this.el('activeBatch').value;this.options.save();this.options.clearFilters();this.options.draw();this.refresh();this.options.toast('Lote de trabalho atualizado.');};
   this.el('saveBatch').onclick=()=>this.source==='catalog'?this.importCatalog():this.saveBatch();this.refresh();this.loadEditor('');
  }
+ restoreTab(){let key;try{key=(window.CentralLocalStorage||localStorage).getItem('lungo_settings_tab');}catch{}const button=document.querySelector('[data-settings-tab="'+(['general','access','batches'].includes(key)?key:'general')+'"]');if(button&&!button.hidden)button.click();}
  el(id){return document.getElementById(id);}
  guard(){if(this.options.canUse())return true;this.options.toast('Conclua a chamada e aguarde o carregamento dos dados.');return false;}
  refresh(){
