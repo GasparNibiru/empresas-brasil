@@ -2,7 +2,7 @@ window.CentralTeam=({settings,persistence,cfg})=>{
  const actor=window.CentralIdentity||{role:'admin'},seller=actor.role==='seller';
  if(seller){
   document.querySelector('[data-tab=catalog]').hidden=true;
-  for(const id of ['importBtn','saveCfg','saveCfgTop','qrBtn','checkBtn'])document.getElementById(id).hidden=true;
+  for(const id of ['exportBtn','saveCfg','saveCfgTop','qrBtn','checkBtn'])document.getElementById(id).hidden=true;
   document.getElementById('autoWaEnabled').disabled=true;
   for(const id of ['goal','defaultWaMsg','apiBridge'])document.getElementById(id).readOnly=true;
   for(const key of ['agent','batches']){document.querySelector(`[data-settings-tab=${key}]`).hidden=true;document.querySelector(`[data-settings-panel=${key}]`).hidden=true;}
